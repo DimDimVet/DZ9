@@ -8,7 +8,7 @@ public class UserInputDataComponent : MonoBehaviour, IConvertGameObjectToEntity
     public MonoBehaviour ShootAction;
     public MonoBehaviour PullAction;
     public MonoBehaviour ModeAction;
-    //public MonoBehaviour CurrentAnim;
+
     //anim
     public string AnimSpeed;
     public string AnimJamp;
