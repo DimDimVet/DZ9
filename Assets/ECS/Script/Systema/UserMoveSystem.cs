@@ -7,7 +7,7 @@ using Unity.Mathematics;
 public class UserMoveSystem : ComponentSystem
 {
     private EntityQuery moveQuery;
-    public float rezulAxisZ=90;
+
     protected override void OnCreate()
     {
         moveQuery = GetEntityQuery(ComponentType.ReadOnly<InputData>(),
@@ -19,22 +19,28 @@ public class UserMoveSystem : ComponentSystem
     {
         Entities.With(moveQuery).ForEach
             (
-            (Entity entity, Transform transform, ref InputData inputData, ref MoveData moveData) =>
+            (Entity entity, UserInputDataComponent userInput, /*Transform transform,*/ ref InputData inputData, ref MoveData moveData) =>
             {
-
-                if (transform == null)
+                if (userInput.FollowAction != null && userInput.FollowAction is IAngleAction ability)
                 {
-                    return;
+                    ability.FollowTarget();
                 }
-                else
-                {
-                    Vector3 currentPosition = transform.position;
+               
 
-                    currentPosition += new Vector3(inputData.Move.x * moveData.MoveSpeed,
-                                                   0,
-                                                   inputData.Move.y * moveData.MoveSpeed);
-                    transform.position = currentPosition;
+                //if (transform == null)
+                //{
+                //    return;
+                //}
+                //else
+                //{
+                //    Vector3 currentPosition = transform.position;
 
+                //    currentPosition += new Vector3(inputData.Move.x * moveData.MoveSpeed,
+                //                                   0,
+                //                                   inputData.Move.y * moveData.MoveSpeed);
+                //    transform.position = currentPosition;
+
+                    //
 
                     //var dir = new Vector3(inputData.Move.x, 0, inputData.Move.y);
 
@@ -55,8 +61,7 @@ public class UserMoveSystem : ComponentSystem
 
                     //transform.rotation = Quaternion.Lerp(rot, newRot, Time.DeltaTime * 10);
 
-
-                }
+                //}
 
 
                 //private Vector3 GetPositionInTarget()//метод передачи позиции курсора в target объект
@@ -90,6 +95,6 @@ public class UserMoveSystem : ComponentSystem
 
             }
             );
-
     }
+
 }

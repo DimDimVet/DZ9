@@ -8,19 +8,28 @@ public class UserInputDataComponent : MonoBehaviour, IConvertGameObjectToEntity
     public MonoBehaviour ShootAction;
     public MonoBehaviour PullAction;
     public MonoBehaviour ModeAction;
+    public MonoBehaviour FollowAction;
 
     //anim
     public string AnimSpeed;
     public string AnimJamp;
     public string AnimDead;
 
+
     public void Convert(Entity entity, EntityManager entityManager, GameObjectConversionSystem conversionSystem)
     {
         entityManager.AddComponentData(entity, new InputData());//добавим в сущность стурктуру ввода
+
         entityManager.AddComponentData(entity, new MoveData()//добавим в сущность стурктуру режима движения(скорость)
         {
-            MoveSpeed = speed / 100
+            MoveSpeed = speed / 100,
         });
+
+        if (FollowAction != null & FollowAction is IAngleAction)
+        {
+            entityManager.AddComponentData(entity, new FollowData());//добавим в сущность стурктуру ввода стрельбы
+        }
+
         if (ShootAction != null & ShootAction is IShootComponent)
         {
             entityManager.AddComponentData(entity, new ShootData());//добавим в сущность стурктуру ввода стрельбы
@@ -54,8 +63,13 @@ public struct InputData : IComponentData
 public struct MoveData : IComponentData
 {
     public float MoveSpeed;
+
 }
 
+public struct FollowData : IComponentData
+{
+    //
+}
 public struct ShootData : IComponentData
 {
     //
