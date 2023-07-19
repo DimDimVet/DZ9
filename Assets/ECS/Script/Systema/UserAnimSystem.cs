@@ -25,7 +25,7 @@ public class UserAnimSystem : ComponentSystem
 
                 if (Mathf.Abs(inputData.Move.x) >= refFloat | Mathf.Abs(inputData.Move.y) >= refFloat)
                 {
-                    animator.SetFloat(userInput.AnimSpeed, 1);
+                    animator.SetFloat(userInput.AnimSpeed, userInput.Speed*math.distance(inputData.Move.x, inputData.Move.y));
                 }
                 else
                 {

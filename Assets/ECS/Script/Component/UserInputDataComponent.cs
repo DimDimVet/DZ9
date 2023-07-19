@@ -4,7 +4,7 @@ using Unity.Mathematics;
 
 public class UserInputDataComponent : MonoBehaviour, IConvertGameObjectToEntity
 {
-    [SerializeField]private float speed;
+    public float Speed=1f;
     public MonoBehaviour ShootAction;
     public MonoBehaviour PullAction;
     public MonoBehaviour ModeAction;
@@ -21,7 +21,7 @@ public class UserInputDataComponent : MonoBehaviour, IConvertGameObjectToEntity
 
         entityManager.AddComponentData(entity, new MoveData()//добавим в сущность стурктуру режима движения(скорость)
         {
-            MoveSpeed = speed / 100,
+            MoveSpeed = Speed / 100,
         });
 
         if (ShootAction != null & ShootAction is IShootComponent)
