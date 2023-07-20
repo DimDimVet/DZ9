@@ -6,6 +6,7 @@ public class UserAnimSystem : ComponentSystem
 {
     private EntityQuery animQuery;//создадим переменую результата запроса сущностей
     private float refFloat = 0.01f;
+    private float2 distans;
     protected override void OnCreate()
     {
         //получим результат запроса всех сущностей 
@@ -22,10 +23,12 @@ public class UserAnimSystem : ComponentSystem
 
                 //move
                 //реакция на изменеия, запустим анимацию
+                distans.x = Mathf.Abs(inputData.Move.x);
+                distans.y = Mathf.Abs(inputData.Move.y);
 
-                if (Mathf.Abs(inputData.Move.x) >= refFloat | Mathf.Abs(inputData.Move.y) >= refFloat)
+                if (distans.x >= refFloat | distans.y >= refFloat)
                 {
-                    animator.SetFloat(userInput.AnimSpeed, userInput.Speed*math.distance(inputData.Move.x, inputData.Move.y));
+                    animator.SetFloat(userInput.AnimSpeed, userInput.Speed * math.distancesq(distans.x, -distans.y));
                 }
                 else
                 {

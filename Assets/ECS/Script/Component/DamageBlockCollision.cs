@@ -12,8 +12,11 @@ public class DamageBlockCollision : MonoBehaviour, ICollisionsComponent
     private bool isStop = false;
     private void Start()
     {
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(transform.DOMoveY (target.position.y, duration, false)).SetLoops(-1, LoopType.Yoyo);
+        Sequence sequence = DOTween.Sequence();//объявим DOTween
+        sequence.Append(transform.DOMoveY (target.position.y, duration, false)).SetLoops(-1, LoopType.Yoyo);//
+        //через Append укажем вид анимации target.position.y - цель перемещения, duration - время выполнения,
+        //false - как float, true - как int, SetLoops(-1, LoopType.Yoyo)- режим цикла(вместо -1(бесконечность) можно
+        //можно указать конкретное число итераций
 
     }
 
@@ -28,9 +31,14 @@ public class DamageBlockCollision : MonoBehaviour, ICollisionsComponent
                 if (healt != null)
                 {
                     healt.HealtContoll(damage);
+                    isStop = true;
+                }
+                else
+                {
+                    isStop = false;
                 }
             }
-            isStop = true;
+            
 
         }
     }
